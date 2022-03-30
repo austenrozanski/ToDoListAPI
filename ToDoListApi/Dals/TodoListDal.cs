@@ -38,7 +38,7 @@ namespace ToDoListApi.Dals
             var list = await _todoListContext.TodoList
                 .Where(x => x.Id == listId)
                 .FirstOrDefaultAsync();
-            if (list == null) { throw new BadHttpRequestException($"No todo list exists with id {listId}"); }
+            if (list == null) { throw new BadHttpRequestException($"Todo not created. No todo list exists with id {listId}"); }
 
             var newTodo = new Todo 
             { 
@@ -60,7 +60,7 @@ namespace ToDoListApi.Dals
                 .Include(t => t.TodoList)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            if (todo == null) { throw new BadHttpRequestException($"No todo exists with id {id}"); }
+            if (todo == null) { throw new BadHttpRequestException($"Todo not updated. No todo exists with id {id}"); }
 
             todo.Label = label;
             await _todoListContext.SaveChangesAsync();
@@ -74,7 +74,7 @@ namespace ToDoListApi.Dals
                 .Include(t => t.TodoList)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            if (todo == null) { throw new BadHttpRequestException($"No todo exists with id {id}"); }
+            if (todo == null) { throw new BadHttpRequestException($"Todo not toggled. No todo exists with id {id}"); }
 
             todo.IsDone = !todo.IsDone;
             await _todoListContext.SaveChangesAsync();
@@ -87,7 +87,7 @@ namespace ToDoListApi.Dals
             var todo = await _todoListContext.Todo
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            if (todo == null) { throw new BadHttpRequestException($"No todo exists with id {id}"); }
+            if (todo == null) { throw new BadHttpRequestException($"Todo not deleted. No todo exists with id {id}"); }
 
             _todoListContext.Remove(todo);
             await _todoListContext.SaveChangesAsync();
