@@ -15,7 +15,7 @@ namespace ToDoListApi.Controllers
         {
             _logger = logger;
             _todoListsBll = todoListsBll;
-         }
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoListDto>>> GetLists()

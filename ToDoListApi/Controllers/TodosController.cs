@@ -25,10 +25,6 @@ namespace ToDoListApi.Controllers
                 var result = await _todosBll.GetTodos(listId);
                 return Ok(result);
             }
-            catch (BadHttpRequestException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (Exception ex)
             {
                 _logger.LogError($"Error occurred in GET Todos. Parameters(listId: {listId}). Error: {ex}");
@@ -46,7 +42,6 @@ namespace ToDoListApi.Controllers
             }
             catch (BadHttpRequestException ex)
             {
-                //TODO: Decide if you want to return 400 code or put into some default list if no listId provided
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using ToDoListApi.Blls;
 using ToDoListApi.Dals;
 using ToDoListApi.Data;
@@ -21,6 +22,12 @@ builder.Services.AddDbContext<TodoListContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TodoListConnection"));
 });
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File("C:/Logs/ToDoListApi/ToDoListApi.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+builder.Logging.AddSerilog();
 
 var app = builder.Build();
 
